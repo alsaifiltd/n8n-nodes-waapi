@@ -1,0 +1,8 @@
+{
+	"node": "n8n-nodes-waapi.waapiTrigger",
+	"nodeVersion": "1.0",
+	"codexVersion": "1.0",
+	"categories": ["Communication", "Marketing & Content", "Sales"],
+	"resources": { "primaryDocumentation": [{ "url": "https://waapi.chat/en/developers" }] },
+	"alias": ["WhatsApp", "WAAPI", "webhook", "incoming message", "delivery status"]
+}

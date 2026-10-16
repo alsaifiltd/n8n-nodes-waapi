@@ -1,0 +1,3093 @@
+{
+  "operations": [
+    {
+      "key": "upload_message_file",
+      "kind": "action",
+      "resource": "message",
+      "label": "Upload Message File",
+      "description": "Uploads a file for use in a supported messaging channel. Returns its media ID.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "file",
+          "label": "File",
+          "required": true,
+          "type": "file",
+          "description": "Map a file from a previous step or enter a direct HTTPS download URL. Files up to 16 MB are supported; provider limits may be lower."
+        },
+        {
+          "key": "filename",
+          "label": "File Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "mimeType",
+          "label": "File Type",
+          "required": false,
+          "type": "string",
+          "description": "Optional MIME type such as image/png or application/pdf. Usually detected from the file response."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "messageType",
+          "label": "Message Type",
+          "required": true,
+          "type": "string",
+          "choices": [
+            "image",
+            "video",
+            "audio",
+            "document",
+            "sticker"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "upload_template_sample",
+      "kind": "action",
+      "resource": "template",
+      "label": "Upload Template Header Sample",
+      "description": "Uploads a WhatsApp template header sample and returns its Meta upload handle.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "file",
+          "label": "File",
+          "required": true,
+          "type": "file",
+          "description": "Map a file from a previous step or enter a direct HTTPS download URL. Files up to 16 MB are supported; provider limits may be lower."
+        },
+        {
+          "key": "filename",
+          "label": "File Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "mimeType",
+          "label": "File Type",
+          "required": false,
+          "type": "string",
+          "description": "Optional MIME type such as image/png or application/pdf. Usually detected from the file response."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "format",
+          "label": "Header Format",
+          "required": true,
+          "type": "string",
+          "choices": [
+            "IMAGE",
+            "VIDEO",
+            "DOCUMENT"
+          ]
+        }
+      ]
+    },
+    {
+      "key": "get_message_attachment",
+      "kind": "action",
+      "resource": "message",
+      "label": "Get Message Attachment",
+      "description": "Retrieves an owned message attachment for use as a file in later workflow steps.",
+      "fields": [
+        {
+          "key": "messageId",
+          "label": "Message ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_messages"
+        }
+      ]
+    },
+    {
+      "key": "mark_message_read",
+      "kind": "action",
+      "resource": "message",
+      "label": "Mark Incoming Message Read",
+      "description": "Marks an incoming message as read through its connected provider. Sandbox receipts are simulated.",
+      "fields": [
+        {
+          "key": "incomingMessageId",
+          "label": "Incoming Message",
+          "required": true,
+          "type": "string",
+          "description": "Select an incoming message or map Resource ID from New Incoming Message.",
+          "loader": "list_incoming_messages"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "show_typing_indicator",
+      "kind": "action",
+      "resource": "message",
+      "label": "Show Typing Indicator",
+      "description": "Shows a typing indicator while preparing a reply, where supported. WhatsApp also marks the referenced incoming message as read.",
+      "fields": [
+        {
+          "key": "incomingMessageId",
+          "label": "Incoming Message",
+          "required": true,
+          "type": "string",
+          "description": "Select an incoming message or map Resource ID from New Incoming Message.",
+          "loader": "list_incoming_messages"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "record_customer_permission",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Record Customer Permission",
+      "description": "Records existing customer permission for a business and message categories, with source, date, and evidence.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        },
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "categories",
+          "label": "Message Categories",
+          "required": true,
+          "type": "string",
+          "choices": [
+            "MARKETING",
+            "UTILITY",
+            "AUTHENTICATION"
+          ],
+          "list": true
+        },
+        {
+          "key": "source",
+          "label": "Permission Source",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "consentAt",
+          "label": "Permission Obtained At",
+          "required": true,
+          "type": "datetime"
+        },
+        {
+          "key": "evidenceReference",
+          "label": "Evidence Reference",
+          "required": true,
+          "type": "string",
+          "description": "Map the record or URL proving affirmative customer permission, such as an opt-in form submission ID. An imported phone number is not permission."
+        },
+        {
+          "key": "resumeAfterOptOut",
+          "label": "New Permission Obtained After Prior Opt-out",
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "record_customer_opt_out",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "Record Customer Opt-Out",
+      "description": "Record Customer Opt-Out in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        },
+        {
+          "key": "reason",
+          "label": "Opt-out Reason",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "scope",
+          "label": "Messages to Stop",
+          "required": true,
+          "type": "string",
+          "default": "BUSINESS_INITIATED",
+          "choices": {
+            "BUSINESS_INITIATED": "Proactive messages",
+            "ALL": "All messages"
+          }
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "get_customer_permission",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Get Customer Permission History",
+      "description": "Get Customer Permission History in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        }
+      ]
+    },
+    {
+      "key": "create_contact",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Create Contact",
+      "description": "Creates a new customer contact in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "phone",
+          "label": "Phone Number",
+          "required": true,
+          "type": "string",
+          "description": "Enter the full international number, for example +15555550101."
+        },
+        {
+          "key": "name",
+          "label": "Full Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "email",
+          "label": "Email",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "source",
+          "label": "Contact Source",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "externalId",
+          "label": "External Customer ID",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "tags",
+          "label": "Tags",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "customFields",
+          "label": "Custom Fields",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        },
+        {
+          "key": "marketingStatus",
+          "label": "Marketing Permission",
+          "required": false,
+          "type": "string",
+          "description": "To grant new permission, first create the contact, then use Record Customer Permission with its source, date, business, categories, and evidence. SUBSCRIBED does not create consent.",
+          "choices": [
+            "UNKNOWN",
+            "SUBSCRIBED",
+            "OPTED_OUT"
+          ]
+        },
+        {
+          "key": "marketingConsentSource",
+          "label": "Permission Source",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "marketingConsentAt",
+          "label": "Permission Recorded At",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "key": "optOutReason",
+          "label": "Opt-out Reason",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "upsert_contact",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Create or Update Contact",
+      "description": "Create or Update Contact in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "phone",
+          "label": "Phone Number",
+          "required": true,
+          "type": "string",
+          "description": "Enter the full international number, for example +15555550101."
+        },
+        {
+          "key": "name",
+          "label": "Full Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "email",
+          "label": "Email",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "source",
+          "label": "Contact Source",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "externalId",
+          "label": "External Customer ID",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "tags",
+          "label": "Tags",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "customFields",
+          "label": "Custom Fields",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        },
+        {
+          "key": "marketingStatus",
+          "label": "Marketing Permission",
+          "required": false,
+          "type": "string",
+          "description": "To grant new permission, first create the contact, then use Record Customer Permission with its source, date, business, categories, and evidence. SUBSCRIBED does not create consent.",
+          "choices": [
+            "UNKNOWN",
+            "SUBSCRIBED",
+            "OPTED_OUT"
+          ]
+        },
+        {
+          "key": "marketingConsentSource",
+          "label": "Permission Source",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "marketingConsentAt",
+          "label": "Permission Recorded At",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "key": "optOutReason",
+          "label": "Opt-out Reason",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "update_contact",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Update Contact",
+      "description": "Update Contact in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        },
+        {
+          "key": "phone",
+          "label": "Phone Number",
+          "required": false,
+          "type": "string",
+          "description": "Enter the full international number, for example +15555550101."
+        },
+        {
+          "key": "name",
+          "label": "Full Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "email",
+          "label": "Email",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "source",
+          "label": "Contact Source",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "externalId",
+          "label": "External Customer ID",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "tags",
+          "label": "Tags",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "customFields",
+          "label": "Custom Fields",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        },
+        {
+          "key": "marketingStatus",
+          "label": "Marketing Permission",
+          "required": false,
+          "type": "string",
+          "description": "To grant new permission, first create the contact, then use Record Customer Permission with its source, date, business, categories, and evidence. SUBSCRIBED does not create consent.",
+          "choices": [
+            "UNKNOWN",
+            "SUBSCRIBED",
+            "OPTED_OUT"
+          ]
+        },
+        {
+          "key": "marketingConsentSource",
+          "label": "Permission Source",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "marketingConsentAt",
+          "label": "Permission Recorded At",
+          "required": false,
+          "type": "datetime"
+        },
+        {
+          "key": "optOutReason",
+          "label": "Opt-out Reason",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "delete_contact",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Delete Contact",
+      "description": "Deletes a contact when WAAPI retention rules allow it.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "add_contact_tags",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Add Contact Tags",
+      "description": "Add Contact Tags in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        },
+        {
+          "key": "tags",
+          "label": "Tags",
+          "required": true,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "remove_contact_tag",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Remove Contact Tag",
+      "description": "Remove Contact Tag in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        },
+        {
+          "key": "tag",
+          "label": "Tag",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_whatsapp_text",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send WhatsApp Text Message",
+      "description": "Sends a WhatsApp text reply within the customer’s 24-hour reply window.",
+      "fields": [
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "text",
+          "label": "Message",
+          "required": true,
+          "type": "text",
+          "description": "Text replies require an incoming customer message within the last 24 hours. To start a new conversation, use an approved template."
+        },
+        {
+          "key": "message_reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_channel_text",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Channel Text Message",
+      "description": "Sends a text reply through a connected messaging channel. Provider reply rules apply.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "text",
+          "label": "Message",
+          "required": true,
+          "type": "text"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_template",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send WhatsApp Template Message",
+      "description": "Sends an approved WhatsApp template with guided fields for its variables.",
+      "fields": [
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_image",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Image Message",
+      "description": "Sends a image reply where supported by the selected channel. Provider reply rules apply.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "url",
+          "label": "Public HTTPS File URL",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "caption",
+          "label": "Caption",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_video",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Video Message",
+      "description": "Sends a video reply where supported by the selected channel. Provider reply rules apply.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "url",
+          "label": "Public HTTPS File URL",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "caption",
+          "label": "Caption",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_audio",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Audio Message",
+      "description": "Sends a audio reply where supported by the selected channel. Provider reply rules apply.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "url",
+          "label": "Public HTTPS File URL",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_document",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Document Message",
+      "description": "Sends a document reply where supported by the selected channel. Provider reply rules apply.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "url",
+          "label": "Public HTTPS File URL",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "caption",
+          "label": "Caption",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "key": "filename",
+          "label": "File Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_location",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Location Message",
+      "description": "Send Location Message in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "latitude",
+          "label": "Latitude",
+          "required": false,
+          "type": "number"
+        },
+        {
+          "key": "longitude",
+          "label": "Longitude",
+          "required": false,
+          "type": "number"
+        },
+        {
+          "key": "locationName",
+          "label": "Place Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "address",
+          "label": "Address",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "payload",
+          "label": "Advanced Message Details",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete provider-compatible JSON. Overrides the guided fields. Only channels supporting this message type can send it."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_contacts",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Contacts Message",
+      "description": "Send Contacts Message in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "customerName",
+          "label": "Contact Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "customerPhone",
+          "label": "Contact Phone Number",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "payload",
+          "label": "Advanced Message Details",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete provider-compatible JSON. Overrides the guided fields. Only channels supporting this message type can send it."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_interactive",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Interactive Message",
+      "description": "Send Interactive Message in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "message",
+          "label": "Message",
+          "required": false,
+          "type": "text"
+        },
+        {
+          "key": "button1Title",
+          "label": "Reply Button 1",
+          "required": false,
+          "type": "string",
+          "description": "Optional button label, up to 20 characters. Add at least one button when using the guided fields."
+        },
+        {
+          "key": "button1Id",
+          "label": "Reply Button 1 Value",
+          "required": false,
+          "type": "string",
+          "description": "Optional value returned when the customer chooses this button."
+        },
+        {
+          "key": "button2Title",
+          "label": "Reply Button 2",
+          "required": false,
+          "type": "string",
+          "description": "Optional button label, up to 20 characters. Add at least one button when using the guided fields."
+        },
+        {
+          "key": "button2Id",
+          "label": "Reply Button 2 Value",
+          "required": false,
+          "type": "string",
+          "description": "Optional value returned when the customer chooses this button."
+        },
+        {
+          "key": "button3Title",
+          "label": "Reply Button 3",
+          "required": false,
+          "type": "string",
+          "description": "Optional button label, up to 20 characters. Add at least one button when using the guided fields."
+        },
+        {
+          "key": "button3Id",
+          "label": "Reply Button 3 Value",
+          "required": false,
+          "type": "string",
+          "description": "Optional value returned when the customer chooses this button."
+        },
+        {
+          "key": "payload",
+          "label": "Advanced Message Details",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete provider-compatible JSON. Overrides the guided fields. Only channels supporting this message type can send it."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_reaction",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Reaction Message",
+      "description": "Send Reaction Message in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "originalMessageId",
+          "label": "Original Message ID",
+          "required": false,
+          "type": "string",
+          "description": "Map Provider Message ID from the message you want to react to."
+        },
+        {
+          "key": "emoji",
+          "label": "Reaction Emoji",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "payload",
+          "label": "Advanced Message Details",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete provider-compatible JSON. Overrides the guided fields. Only channels supporting this message type can send it."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "send_sticker",
+      "kind": "action",
+      "resource": "message",
+      "label": "Send Sticker Message",
+      "description": "Send Sticker Message in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "to",
+          "label": "Customer Phone Number or Channel Recipient ID",
+          "required": true,
+          "type": "string",
+          "description": "WhatsApp: international phone number including country code. Other channels: map the exact recipient ID from an incoming message. Preserve punctuation in channel IDs."
+        },
+        {
+          "key": "mediaId",
+          "label": "Uploaded Sticker ID",
+          "required": false,
+          "type": "string",
+          "description": "Map the media ID from Upload Message File using sticker as its message type."
+        },
+        {
+          "key": "url",
+          "label": "Sticker HTTPS URL",
+          "required": false,
+          "type": "string",
+          "description": "Optional direct WebP sticker URL when you are not using an uploaded sticker."
+        },
+        {
+          "key": "payload",
+          "label": "Advanced Message Details",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete provider-compatible JSON. Overrides the guided fields. Only channels supporting this message type can send it."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "close_conversation",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Close Conversation",
+      "description": "Close Conversation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "reopen_conversation",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Reopen Conversation",
+      "description": "Reopen Conversation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "unassign_conversation",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Unassign Conversation",
+      "description": "Unassign Conversation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "assign_conversation",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Assign Conversation",
+      "description": "Assign Conversation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        },
+        {
+          "key": "userId",
+          "label": "Team Member",
+          "required": true,
+          "type": "string",
+          "loader": "list_users"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "add_conversation_tag",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Add Conversation Tag",
+      "description": "Add Conversation Tag in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        },
+        {
+          "key": "tag",
+          "label": "Tag",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "remove_conversation_tag",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Remove Conversation Tag",
+      "description": "Remove Conversation Tag in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        },
+        {
+          "key": "tag",
+          "label": "Tag",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "create_template",
+      "kind": "action",
+      "resource": "template",
+      "label": "Create and Submit Template",
+      "description": "Creates a WhatsApp template and submits it for Meta review. Sandbox approval is simulated.",
+      "fields": [
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "name",
+          "label": "Template Name",
+          "required": true,
+          "type": "string",
+          "description": "Use lowercase letters, numbers, and underscores, such as order_update."
+        },
+        {
+          "key": "language",
+          "label": "Language Code",
+          "required": true,
+          "type": "string",
+          "description": "Use a supported WhatsApp template language code.",
+          "default": "en"
+        },
+        {
+          "key": "category",
+          "label": "Category",
+          "required": true,
+          "type": "string",
+          "choices": [
+            "UTILITY",
+            "MARKETING"
+          ]
+        },
+        {
+          "key": "body",
+          "label": "Message Body",
+          "required": false,
+          "type": "text",
+          "description": "Use positional placeholders {{1}}, {{2}}, and provide one example for each."
+        },
+        {
+          "key": "bodyExamples",
+          "label": "Body Variable Examples",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "headerFormat",
+          "label": "Header Type",
+          "required": false,
+          "type": "string",
+          "choices": {
+            "NONE": "No header",
+            "TEXT": "Text",
+            "IMAGE": "Image",
+            "VIDEO": "Video",
+            "DOCUMENT": "PDF document"
+          }
+        },
+        {
+          "key": "header",
+          "label": "Text Header",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "headerExample",
+          "label": "Header Variable Example",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "headerSampleHandle",
+          "label": "Header Sample Upload Handle",
+          "required": false,
+          "type": "string",
+          "description": "For an image, video, or PDF header, map Handle from Upload Template Header Sample."
+        },
+        {
+          "key": "footer",
+          "label": "Footer",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "buttons",
+          "label": "Buttons",
+          "required": false,
+          "type": "text",
+          "description": "Optional JSON array of Meta button definitions."
+        },
+        {
+          "key": "components",
+          "label": "Components JSON",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete component array for advanced templates. Overrides the guided fields when supplied."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "create_template_draft",
+      "kind": "action",
+      "resource": "template",
+      "label": "Create Template Draft",
+      "description": "Saves a template draft without submitting it to Meta.",
+      "fields": [
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "name",
+          "label": "Template Name",
+          "required": true,
+          "type": "string",
+          "description": "Use lowercase letters, numbers, and underscores, such as order_update."
+        },
+        {
+          "key": "language",
+          "label": "Language Code",
+          "required": true,
+          "type": "string",
+          "description": "Use a supported WhatsApp template language code.",
+          "default": "en"
+        },
+        {
+          "key": "category",
+          "label": "Category",
+          "required": true,
+          "type": "string",
+          "choices": [
+            "UTILITY",
+            "MARKETING"
+          ]
+        },
+        {
+          "key": "body",
+          "label": "Message Body",
+          "required": false,
+          "type": "text",
+          "description": "Use positional placeholders {{1}}, {{2}}, and provide one example for each."
+        },
+        {
+          "key": "bodyExamples",
+          "label": "Body Variable Examples",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "headerFormat",
+          "label": "Header Type",
+          "required": false,
+          "type": "string",
+          "choices": {
+            "NONE": "No header",
+            "TEXT": "Text",
+            "IMAGE": "Image",
+            "VIDEO": "Video",
+            "DOCUMENT": "PDF document"
+          }
+        },
+        {
+          "key": "header",
+          "label": "Text Header",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "headerExample",
+          "label": "Header Variable Example",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "headerSampleHandle",
+          "label": "Header Sample Upload Handle",
+          "required": false,
+          "type": "string",
+          "description": "For an image, video, or PDF header, map Handle from Upload Template Header Sample."
+        },
+        {
+          "key": "footer",
+          "label": "Footer",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "buttons",
+          "label": "Buttons",
+          "required": false,
+          "type": "text",
+          "description": "Optional JSON array of Meta button definitions."
+        },
+        {
+          "key": "components",
+          "label": "Components JSON",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete component array for advanced templates. Overrides the guided fields when supplied."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "update_template",
+      "kind": "action",
+      "resource": "template",
+      "label": "Update Template",
+      "description": "Updates selected template fields while preserving omitted headers, footers, and buttons. Approval and provider edit restrictions apply.",
+      "fields": [
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        },
+        {
+          "key": "category",
+          "label": "Category",
+          "required": false,
+          "type": "string",
+          "choices": [
+            "UTILITY",
+            "MARKETING"
+          ]
+        },
+        {
+          "key": "body",
+          "label": "Message Body",
+          "required": false,
+          "type": "text",
+          "description": "Use positional placeholders {{1}}, {{2}}, and provide one example for each."
+        },
+        {
+          "key": "bodyExamples",
+          "label": "Body Variable Examples",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "headerFormat",
+          "label": "Header Type",
+          "required": false,
+          "type": "string",
+          "choices": {
+            "NONE": "No header",
+            "TEXT": "Text",
+            "IMAGE": "Image",
+            "VIDEO": "Video",
+            "DOCUMENT": "PDF document"
+          }
+        },
+        {
+          "key": "header",
+          "label": "Text Header",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "headerExample",
+          "label": "Header Variable Example",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "headerSampleHandle",
+          "label": "Header Sample Upload Handle",
+          "required": false,
+          "type": "string",
+          "description": "For an image, video, or PDF header, map Handle from Upload Template Header Sample."
+        },
+        {
+          "key": "footer",
+          "label": "Footer",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "buttons",
+          "label": "Buttons",
+          "required": false,
+          "type": "text",
+          "description": "Optional JSON array of Meta button definitions."
+        },
+        {
+          "key": "components",
+          "label": "Components JSON",
+          "required": false,
+          "type": "text",
+          "description": "Optional complete component array for advanced templates. Overrides the guided fields when supplied."
+        },
+        {
+          "key": "removeFooter",
+          "label": "Remove Existing Footer",
+          "required": false,
+          "type": "boolean"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "submit_template",
+      "kind": "action",
+      "resource": "template",
+      "label": "Submit Template Draft",
+      "description": "Submit Template Draft in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "delete_template",
+      "kind": "action",
+      "resource": "template",
+      "label": "Delete Template",
+      "description": "Deletes a single template variant when provider state permits it.",
+      "fields": [
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "sync_templates",
+      "kind": "action",
+      "resource": "template",
+      "label": "Sync Templates",
+      "description": "Sync Templates in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "create_campaign",
+      "kind": "action",
+      "resource": "campaign",
+      "label": "Create Campaign Draft",
+      "description": "Creates a campaign draft with guided customer and template-variable choices. This step never launches messages.",
+      "fields": [
+        {
+          "key": "name",
+          "label": "Campaign Name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        },
+        {
+          "key": "contactIds",
+          "label": "Customers",
+          "required": false,
+          "type": "string",
+          "description": "Choose sample or subscribed customers. Only contacts with marketing permission are eligible.",
+          "loader": "list_contacts",
+          "list": true
+        },
+        {
+          "key": "tags",
+          "label": "Audience Tags",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "scheduledAt",
+          "label": "Scheduled Time",
+          "required": false,
+          "type": "datetime",
+          "description": "Optional future time in ISO 8601. Saving only creates a draft. Launch Campaign queues delivery."
+        },
+        {
+          "key": "templateMappings",
+          "label": "Personalization Mappings",
+          "required": false,
+          "type": "text",
+          "description": "Map body.1 etc. to contact.name, attribute.<field>, or literal:<value>. Example: {\"body.1\":\"contact.name\",\"body.2\":\"literal:ORDER-123\"}."
+        },
+        {
+          "key": "audienceFilter",
+          "label": "Advanced Audience Settings",
+          "required": false,
+          "type": "text",
+          "description": "Optional full audience filter. Overrides the customer/tag fields. Supports approved insight audiences and delivery settings."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "update_campaign",
+      "kind": "action",
+      "resource": "campaign",
+      "label": "Update Campaign Draft",
+      "description": "Update Campaign Draft in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "campaignId",
+          "label": "Campaign",
+          "required": true,
+          "type": "string",
+          "loader": "list_campaigns"
+        },
+        {
+          "key": "name",
+          "label": "Campaign Name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": true,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        },
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        },
+        {
+          "key": "contactIds",
+          "label": "Customers",
+          "required": false,
+          "type": "string",
+          "description": "Choose sample or subscribed customers. Only contacts with marketing permission are eligible.",
+          "loader": "list_contacts",
+          "list": true
+        },
+        {
+          "key": "tags",
+          "label": "Audience Tags",
+          "required": false,
+          "type": "string",
+          "list": true
+        },
+        {
+          "key": "scheduledAt",
+          "label": "Scheduled Time",
+          "required": false,
+          "type": "datetime",
+          "description": "Optional future time in ISO 8601. Saving only creates a draft. Launch Campaign queues delivery."
+        },
+        {
+          "key": "templateMappings",
+          "label": "Personalization Mappings",
+          "required": false,
+          "type": "text",
+          "description": "Map body.1 etc. to contact.name, attribute.<field>, or literal:<value>. Example: {\"body.1\":\"contact.name\",\"body.2\":\"literal:ORDER-123\"}."
+        },
+        {
+          "key": "audienceFilter",
+          "label": "Advanced Audience Settings",
+          "required": false,
+          "type": "text",
+          "description": "Optional full audience filter. Overrides the customer/tag fields. Supports approved insight audiences and delivery settings."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "launch_campaign",
+      "kind": "action",
+      "resource": "campaign",
+      "label": "Launch Campaign",
+      "description": "Launches or schedules an approved campaign through WAAPI’s delivery controls.",
+      "fields": [
+        {
+          "key": "campaignId",
+          "label": "Campaign",
+          "required": true,
+          "type": "string",
+          "loader": "list_campaigns"
+        },
+        {
+          "key": "complianceAccepted",
+          "label": "Recipient Permission Confirmed",
+          "required": true,
+          "type": "boolean",
+          "description": "Confirm that recipients have given the required permission. This does not subscribe customers or override WhatsApp, plan, or delivery rules."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "cancel_campaign",
+      "kind": "action",
+      "resource": "campaign",
+      "label": "Cancel Campaign",
+      "description": "Cancels queued campaign work while preserving its history. Active delivery stops at the next recipient checkpoint.",
+      "fields": [
+        {
+          "key": "campaignId",
+          "label": "Campaign",
+          "required": true,
+          "type": "string",
+          "loader": "list_campaigns"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "delete_campaign",
+      "kind": "action",
+      "resource": "campaign",
+      "label": "Delete Campaign",
+      "description": "Delete Campaign in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "campaignId",
+          "label": "Campaign",
+          "required": true,
+          "type": "string",
+          "loader": "list_campaigns"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "create_automation",
+      "kind": "action",
+      "resource": "automation",
+      "label": "Create Automation Draft",
+      "description": "Saves an automation draft. Test the exact flow in WAAPI before activation.",
+      "fields": [
+        {
+          "key": "name",
+          "label": "Automation Name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "trigger",
+          "label": "Trigger",
+          "required": true,
+          "type": "string",
+          "default": "new_inbound_message"
+        },
+        {
+          "key": "steps",
+          "label": "Flow Steps",
+          "required": true,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "update_automation",
+      "kind": "action",
+      "resource": "automation",
+      "label": "Update Automation Draft",
+      "description": "Update Automation Draft in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "automationId",
+          "label": "Automation",
+          "required": true,
+          "type": "string",
+          "loader": "list_automations"
+        },
+        {
+          "key": "name",
+          "label": "Name",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "steps",
+          "label": "Flow Steps",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "pause_automation",
+      "kind": "action",
+      "resource": "automation",
+      "label": "Pause Automation",
+      "description": "Pause Automation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "automationId",
+          "label": "Automation",
+          "required": true,
+          "type": "string",
+          "loader": "list_automations"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "activate_automation",
+      "kind": "action",
+      "resource": "automation",
+      "label": "Activate Tested Automation",
+      "description": "Activates an automation only after its exact saved flow has passed WAAPI’s required test.",
+      "fields": [
+        {
+          "key": "automationId",
+          "label": "Automation",
+          "required": true,
+          "type": "string",
+          "loader": "list_automations"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "delete_automation",
+      "kind": "action",
+      "resource": "automation",
+      "label": "Delete Automation",
+      "description": "Delete Automation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "automationId",
+          "label": "Automation",
+          "required": true,
+          "type": "string",
+          "loader": "list_automations"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "get_contact",
+      "kind": "action",
+      "resource": "contact",
+      "label": "Get Contact",
+      "description": "Get Contact in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        }
+      ]
+    },
+    {
+      "key": "list_contacts",
+      "kind": "action",
+      "resource": "contact",
+      "label": "List Contacts",
+      "description": "List Contacts in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_message",
+      "kind": "action",
+      "resource": "message",
+      "label": "Get Message",
+      "description": "Get Message in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "messageId",
+          "label": "Message ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_messages"
+        }
+      ]
+    },
+    {
+      "key": "list_messages",
+      "kind": "action",
+      "resource": "message",
+      "label": "List Messages",
+      "description": "List Messages in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_conversation",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Get Conversation",
+      "description": "Get Conversation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        }
+      ]
+    },
+    {
+      "key": "list_conversations",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "List Conversations",
+      "description": "List Conversations in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_template",
+      "kind": "action",
+      "resource": "template",
+      "label": "Get Template",
+      "description": "Get Template in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        }
+      ]
+    },
+    {
+      "key": "list_templates",
+      "kind": "action",
+      "resource": "template",
+      "label": "List Templates",
+      "description": "List Templates in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_campaign",
+      "kind": "action",
+      "resource": "campaign",
+      "label": "Get Campaign",
+      "description": "Get Campaign in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "campaignId",
+          "label": "Campaign",
+          "required": true,
+          "type": "string",
+          "loader": "list_campaigns"
+        }
+      ]
+    },
+    {
+      "key": "list_campaigns",
+      "kind": "action",
+      "resource": "campaign",
+      "label": "List Campaigns",
+      "description": "List Campaigns in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_automation",
+      "kind": "action",
+      "resource": "automation",
+      "label": "Get Automation",
+      "description": "Get Automation in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "automationId",
+          "label": "Automation",
+          "required": true,
+          "type": "string",
+          "loader": "list_automations"
+        }
+      ]
+    },
+    {
+      "key": "list_automations",
+      "kind": "action",
+      "resource": "automation",
+      "label": "List Automations",
+      "description": "List Automations in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_automation_run",
+      "kind": "action",
+      "resource": "automation",
+      "label": "Get Automation Run",
+      "description": "Get Automation Run in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "runId",
+          "label": "Run ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_automation_runs"
+        }
+      ]
+    },
+    {
+      "key": "list_automation_runs",
+      "kind": "action",
+      "resource": "automation",
+      "label": "List Automation Runs",
+      "description": "List Automation Runs in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_channel",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "Get Messaging Account",
+      "description": "Get Messaging Account in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": true,
+          "type": "string",
+          "loader": "list_channels"
+        }
+      ]
+    },
+    {
+      "key": "list_channels",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "List Messaging Accounts",
+      "description": "List Messaging Accounts in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "limit",
+          "label": "Maximum Results",
+          "required": false,
+          "type": "integer",
+          "default": "20"
+        },
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "filters",
+          "label": "Optional Filters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        }
+      ]
+    },
+    {
+      "key": "get_template_fields",
+      "kind": "action",
+      "resource": "template",
+      "label": "Get Template Fields",
+      "description": "Get Template Fields in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "templateId",
+          "label": "Template",
+          "required": true,
+          "type": "string",
+          "description": "Select an approved template belonging to the chosen WhatsApp account.",
+          "loader": "list_templates"
+        }
+      ]
+    },
+    {
+      "key": "get_conversation_messages",
+      "kind": "action",
+      "resource": "conversation",
+      "label": "Get Conversation Messages",
+      "description": "Get Conversation Messages in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "conversationId",
+          "label": "Conversation",
+          "required": true,
+          "type": "string",
+          "description": "Select a conversation or map Conversation ID from an incoming message or conversation trigger.",
+          "loader": "list_conversations"
+        }
+      ]
+    },
+    {
+      "key": "get_workspace",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "Get Workspace",
+      "description": "Get Workspace in your WAAPI workspace.",
+      "fields": []
+    },
+    {
+      "key": "get_usage",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "Get Usage",
+      "description": "Get Usage in your WAAPI workspace.",
+      "fields": []
+    },
+    {
+      "key": "get_operations",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "Get Available Operations",
+      "description": "Get Available Operations in your WAAPI workspace.",
+      "fields": []
+    },
+    {
+      "key": "get_users",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "List Team Members",
+      "description": "List Team Members in your WAAPI workspace.",
+      "fields": []
+    },
+    {
+      "key": "get_teams",
+      "kind": "action",
+      "resource": "workspace",
+      "label": "List Teams",
+      "description": "List Teams in your WAAPI workspace.",
+      "fields": []
+    },
+    {
+      "key": "get_contact_tags",
+      "kind": "action",
+      "resource": "contact",
+      "label": "List Contact Tags",
+      "description": "List Contact Tags in your WAAPI workspace.",
+      "fields": []
+    },
+    {
+      "key": "get_event_types",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "List Event Types",
+      "description": "List Event Types in your WAAPI workspace.",
+      "fields": []
+    },
+    {
+      "key": "get_webhook_subscriptions",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Get Webhook Subscription",
+      "description": "Get Webhook Subscription in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "id",
+          "label": "Webhook Subscription ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_webhook_subscriptions"
+        }
+      ]
+    },
+    {
+      "key": "list_webhook_subscriptions",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "List Webhook Subscriptions",
+      "description": "List Webhook Subscriptions in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "key": "get_webhook_deliveries",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Get Webhook Delivery",
+      "description": "Get Webhook Delivery in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "id",
+          "label": "Webhook Delivery ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_webhook_deliveries"
+        }
+      ]
+    },
+    {
+      "key": "list_webhook_deliveries",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "List Webhook Deliveries",
+      "description": "List Webhook Deliveries in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "cursor",
+          "label": "Next Page Cursor",
+          "required": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "key": "create_webhook",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Create Webhook Subscription",
+      "description": "Creates a signed webhook subscription. Store the returned signing secret securely.",
+      "fields": [
+        {
+          "key": "name",
+          "label": "Subscription Name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "targetUrl",
+          "label": "Destination HTTPS URL",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "eventTypes",
+          "label": "Events",
+          "required": true,
+          "type": "string",
+          "loader": "list_events",
+          "list": true
+        },
+        {
+          "key": "status",
+          "label": "Status",
+          "required": false,
+          "type": "string",
+          "default": "active",
+          "choices": [
+            "active",
+            "paused"
+          ]
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "update_webhook",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Update Webhook Subscription",
+      "description": "Update Webhook Subscription in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "id",
+          "label": "Subscription ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_webhook_subscriptions"
+        },
+        {
+          "key": "name",
+          "label": "Subscription Name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "targetUrl",
+          "label": "Destination HTTPS URL",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "eventTypes",
+          "label": "Events",
+          "required": true,
+          "type": "string",
+          "loader": "list_events",
+          "list": true
+        },
+        {
+          "key": "status",
+          "label": "Status",
+          "required": false,
+          "type": "string",
+          "default": "active",
+          "choices": [
+            "active",
+            "paused"
+          ]
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "delete_webhook",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Delete Webhook Subscription",
+      "description": "Delete Webhook Subscription in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "id",
+          "label": "Subscription ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_webhook_subscriptions"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "test_webhook",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Test Webhook Subscription",
+      "description": "Test Webhook Subscription in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "id",
+          "label": "Webhook Resource ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_webhook_subscriptions"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "rotate_webhook_secret",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Rotate Webhook Signing Secret",
+      "description": "Rotate Webhook Signing Secret in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "id",
+          "label": "Webhook Resource ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_webhook_subscriptions"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "retry_webhook_delivery",
+      "kind": "action",
+      "resource": "webhook",
+      "label": "Retry Webhook Delivery",
+      "description": "Retry Webhook Delivery in your WAAPI workspace.",
+      "fields": [
+        {
+          "key": "id",
+          "label": "Webhook Resource ID",
+          "required": true,
+          "type": "string",
+          "loader": "list_webhook_deliveries"
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "api_request",
+      "kind": "action",
+      "resource": "api",
+      "label": "Custom API Request",
+      "description": "Calls any current or future WAAPI public API endpoint using your connected account and its permissions.",
+      "fields": [
+        {
+          "key": "method",
+          "label": "Method",
+          "required": true,
+          "type": "string",
+          "default": "GET",
+          "choices": [
+            "GET",
+            "POST",
+            "PATCH",
+            "DELETE"
+          ]
+        },
+        {
+          "key": "path",
+          "label": "API Path",
+          "required": true,
+          "type": "string",
+          "description": "Relative public API path, such as /contacts or /campaigns/ID/send. Use Get Available Operations or the WAAPI API documentation for current endpoints. Credentials are added automatically."
+        },
+        {
+          "key": "query",
+          "label": "Query Parameters",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        },
+        {
+          "key": "body",
+          "label": "Request Body",
+          "required": false,
+          "type": "text",
+          "description": "Enter JSON or map JSON from an earlier step."
+        },
+        {
+          "key": "reference",
+          "label": "Unique Request Reference",
+          "required": false,
+          "type": "string",
+          "description": "Optional: map the trigger event ID and a step-specific suffix. Reuse it only when retrying the same operation. WAAPI protects identical retries for 24 hours."
+        }
+      ]
+    },
+    {
+      "key": "find_contact",
+      "kind": "search",
+      "resource": "contact",
+      "label": "Find Contact",
+      "description": "Finds a contact by exact phone number, external customer ID, or email.",
+      "fields": [
+        {
+          "key": "phone",
+          "label": "Phone Number",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "externalId",
+          "label": "External Customer ID",
+          "required": false,
+          "type": "string"
+        },
+        {
+          "key": "email",
+          "label": "Email",
+          "required": false,
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "key": "find_template",
+      "kind": "search",
+      "resource": "template",
+      "label": "Find Template",
+      "description": "Finds a template by its exact name and language, optionally for a specific WhatsApp account.",
+      "fields": [
+        {
+          "key": "name",
+          "label": "Template Name",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "key": "language",
+          "label": "Language Code",
+          "required": true,
+          "type": "string",
+          "default": "en"
+        },
+        {
+          "key": "whatsappNumberId",
+          "label": "Business WhatsApp Number",
+          "required": false,
+          "type": "string",
+          "loader": "list_whatsapp_numbers"
+        }
+      ]
+    },
+    {
+      "key": "find_conversation",
+      "kind": "search",
+      "resource": "conversation",
+      "label": "Find Conversation",
+      "description": "Finds the newest conversation for a contact, optionally within a connected messaging account.",
+      "fields": [
+        {
+          "key": "contactId",
+          "label": "Contact",
+          "required": true,
+          "type": "string",
+          "loader": "list_contacts"
+        },
+        {
+          "key": "channelId",
+          "label": "Messaging Account",
+          "required": false,
+          "type": "string",
+          "loader": "list_channels"
+        },
+        {
+          "key": "status",
+          "label": "Conversation Status",
+          "required": false,
+          "type": "string",
+          "choices": [
+            "OPEN",
+            "PENDING",
+            "SOLVED"
+          ]
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "key": "new_contact",
+      "label": "New Contact",
+      "events": [
+        "contact.created"
+      ]
+    },
+    {
+      "key": "updated_contact",
+      "label": "Updated Contact",
+      "events": [
+        "contact.updated",
+        "contact.tag_added",
+        "contact.tag_removed"
+      ]
+    },
+    {
+      "key": "new_message",
+      "label": "New Incoming Message",
+      "events": [
+        "message.received"
+      ]
+    },
+    {
+      "key": "message_status",
+      "label": "Message Status Changed",
+      "events": [
+        "message.sent",
+        "message.delivered",
+        "message.read",
+        "message.failed"
+      ]
+    },
+    {
+      "key": "conversation_changed",
+      "label": "Conversation Changed",
+      "events": [
+        "conversation.created",
+        "conversation.updated",
+        "conversation.assigned",
+        "conversation.unassigned",
+        "conversation.closed",
+        "conversation.reopened"
+      ]
+    },
+    {
+      "key": "campaign_status",
+      "label": "Campaign Status Changed",
+      "events": [
+        "campaign.started",
+        "campaign.completed",
+        "campaign.failed"
+      ]
+    },
+    {
+      "key": "automation_status",
+      "label": "Automation Run Status Changed",
+      "events": [
+        "automation.started",
+        "automation.completed",
+        "automation.failed"
+      ]
+    },
+    {
+      "key": "waapi_event",
+      "label": "New WAAPI Event",
+      "events": []
+    }
+  ]
+}

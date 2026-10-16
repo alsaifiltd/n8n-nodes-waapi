@@ -1,0 +1,57 @@
+{
+  "name": "WAAPI: Send an approved template",
+  "nodes": [
+    {
+      "id": "manual",
+      "name": "When manually executed",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "send-template",
+      "name": "Send approved template",
+      "type": "n8n-nodes-waapi.waapi",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "resource": "message",
+        "operation": "send_template",
+        "whatsappNumberId": "",
+        "templateId": "",
+        "to": "",
+        "variables": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": []
+        },
+        "additionalFields": {}
+      }
+    }
+  ],
+  "connections": {
+    "When manually executed": {
+      "main": [
+        [
+          {
+            "node": "Send approved template",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

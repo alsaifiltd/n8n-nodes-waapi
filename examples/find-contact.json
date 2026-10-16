@@ -1,0 +1,51 @@
+{
+  "name": "WAAPI: Find a customer",
+  "nodes": [
+    {
+      "id": "manual",
+      "name": "When manually executed",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {}
+    },
+    {
+      "id": "find-contact",
+      "name": "Find customer",
+      "type": "n8n-nodes-waapi.waapi",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "resource": "contact",
+        "operation": "find_contact",
+        "phone": "+15555550101",
+        "additionalFields": {},
+        "returnAll": false,
+        "limit": 1
+      }
+    }
+  ],
+  "connections": {
+    "When manually executed": {
+      "main": [
+        [
+          {
+            "node": "Find customer",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

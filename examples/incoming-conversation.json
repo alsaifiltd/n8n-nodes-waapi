@@ -1,0 +1,52 @@
+{
+  "name": "WAAPI: Open the conversation for a new message",
+  "nodes": [
+    {
+      "id": "incoming",
+      "name": "Incoming WAAPI message",
+      "type": "n8n-nodes-waapi.waapiTrigger",
+      "typeVersion": 1,
+      "position": [
+        240,
+        300
+      ],
+      "webhookId": "waapi-example-incoming",
+      "parameters": {
+        "event": "new_message"
+      }
+    },
+    {
+      "id": "conversation",
+      "name": "Get conversation",
+      "type": "n8n-nodes-waapi.waapi",
+      "typeVersion": 1,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "resource": "conversation",
+        "operation": "get_conversation",
+        "conversationId": "={{ $json.conversationId }}",
+        "additionalFields": {}
+      }
+    }
+  ],
+  "connections": {
+    "Incoming WAAPI message": {
+      "main": [
+        [
+          {
+            "node": "Get conversation",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

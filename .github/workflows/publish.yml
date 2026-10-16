@@ -1,0 +1,52 @@
+name: Publish WAAPI community node
+
+# Releases remain manual. This file becomes active in the standalone public node repository.
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Package version to publish (must match package.json)
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: waapi-n8n-publish
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: https://registry.npmjs.org
+          cache: npm
+      - name: Check the requested version
+        env:
+          RELEASE_VERSION: ${{ inputs.version }}
+        run: node -e 'if (require("./package.json").version !== process.env.RELEASE_VERSION) throw new Error("Version must match package.json")'
+      - run: npm ci --ignore-scripts --legacy-peer-deps
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - name: Build a reviewable package
+        run: npm pack --ignore-scripts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: n8n-nodes-waapi-${{ inputs.version }}
+          path: '*.tgz'
+      - name: Publish with provenance
+        run: npm publish --provenance --access public --ignore-scripts
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
