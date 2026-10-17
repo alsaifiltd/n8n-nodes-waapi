@@ -1,6 +1,6 @@
 {
 	"name": "n8n-nodes-waapi",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "WAAPI community nodes for WhatsApp and connected messaging channels, contacts, conversations, templates, campaigns, automations, and signed event triggers.",
 	"license": "MIT",
 	"homepage": "https://waapi.chat/en/developers",

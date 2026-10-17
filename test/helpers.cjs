@@ -129,6 +129,7 @@ function executeContext(key, overrides = {}, respond = defaultResponse) {
 		getWorkflow: () => ({ id: 'workflow-id' }),
 		getExecutionId: () => 'execution-id',
 		getExecuteData: () => ({ runIndex: 0 }),
+		isToolExecution: () => false,
 		continueOnFail: () => false,
 		helpers: {
 			async httpRequestWithAuthentication(name, options) {

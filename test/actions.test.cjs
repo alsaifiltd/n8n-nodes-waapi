@@ -7,6 +7,7 @@ const { apiUrl, getMany } = require('../dist/nodes/Waapi/GenericFunctions');
 const { getTemplateFields } = require('../dist/nodes/Waapi/TemplateHelpers');
 const { loadOptions } = require('../dist/nodes/Waapi/LoadOptions');
 const { WaapiApi } = require('../dist/credentials/WaapiApi.credentials');
+const { NodeHelpers } = require('n8n-workflow');
 
 test('every Zapier-equivalent action and search runs and preserves item linking', async (t) => {
 	assert.equal(operations.length, 87);
@@ -54,7 +55,34 @@ test('all operations and selectors have matching UI controls and registered load
 		if (prop.typeOptions?.loadOptionsMethod)
 			assert.equal(typeof node.methods.loadOptions[prop.typeOptions.loadOptionsMethod], 'function');
 	}
-	assert.equal(node.description.usableAsTool, undefined);
+	assert.equal(node.description.usableAsTool, true);
+});
+
+test('AI tools expose JSON operations and reject binary operations before making requests', async () => {
+	const regular = new Waapi().description;
+	const tool = { ...regular, name: 'waapiTool' };
+	const binary = new Set([
+		'upload_message_file',
+		'upload_template_sample',
+		'get_message_attachment',
+	]);
+	for (const property of properties.filter((item) => item.name === 'operation')) {
+		for (const option of property.options) {
+			assert.equal(NodeHelpers.displayParameter({}, option, null, regular), true);
+			assert.equal(NodeHelpers.displayParameter({}, option, null, tool), !binary.has(option.value));
+		}
+	}
+	for (const key of binary) {
+		const ctx = executeContext(key);
+		ctx.context.isToolExecution = () => true;
+		await assert.rejects(ctx.execute(), /regular WAAPI workflow step/);
+		assert.equal(ctx.calls.length, 0);
+	}
+	const ctx = executeContext('find_contact');
+	ctx.context.isToolExecution = () => true;
+	const [output] = await ctx.execute();
+	assert.ok(output.length);
+	assert.equal(ctx.calls.length, 1);
 });
 
 test('API paths cannot escape the credential boundary, including nested encoding and redirects', () => {

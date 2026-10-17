@@ -21,6 +21,11 @@ export interface Operation {
 	fields: CatalogField[];
 }
 export const operations: Operation[] = catalog.operations;
+export const isBinaryOperation = (key: string) =>
+	key === 'get_message_attachment' ||
+	operations.some(
+		(operation) => operation.key === key && operation.fields.some((field) => field.type === 'file'),
+	);
 const primaryFields: Record<string, string[]> = {
 	find_contact: ['phone', 'externalId', 'email'],
 	send_location: ['latitude', 'longitude', 'locationName', 'address'],
@@ -239,6 +244,7 @@ export const properties: INodeProperties[] = [
 					value: item.key,
 					description: item.description,
 					action: item.label,
+					...(isBinaryOperation(item.key) ? { displayOptions: { hide: { '@tool': [true] } } } : {}),
 				}))
 				.sort((a, b) => a.name.localeCompare(b.name)),
 			default: '',
@@ -249,6 +255,13 @@ export const properties: INodeProperties[] = [
 				: operations.find((item) => item.resource === resource)!.key;
 		return parameter;
 	}),
+	{
+		displayName: 'Use a regular WAAPI workflow step for file uploads and attachment downloads.',
+		name: 'toolFilesNotice',
+		type: 'notice',
+		default: '',
+		displayOptions: { show: { '@tool': [true] } },
+	},
 	...operations.flatMap((operation) => {
 		const show = { show: { resource: [operation.resource], operation: [operation.key] } };
 		const fields = operation.fields.filter((field) => !['limit', 'cursor'].includes(field.key));

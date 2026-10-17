@@ -1,3 +1,9 @@
+# 0.1.3 — 2026-10-17
+
+- Enable WAAPI as an AI Agent tool for JSON-based actions and searches.
+- Hide binary uploads and attachment downloads from AI tool operation choices and reject them before any API request when imported as tools.
+- Document AI Agent setup for the n8n review demo.
+
 # 0.1.2 — 2026-10-17
 
 - Update the package author contact to info@digital-shift.us for n8n ownership verification and integration support.

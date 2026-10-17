@@ -80,6 +80,12 @@ WAAPI delivers at least once. Trigger output **id** is the stable event ID, **re
 
 **Get Message Attachment** downloads an owned attachment into the output binary field `data`, ready for another n8n node. Credentials are sent only to WAAPI and redirects are disabled.
 
+## Use with an AI Agent
+
+Add **WAAPI Tool** to an AI Agent's **Tool** connection, select your WAAPI credential, and choose one resource and operation. For example, choose **Contact → Find Contact** and let the model supply **Phone** with n8n's **Let the model define this parameter** control. Tell the agent to find the customer by phone and summarize the returned record.
+
+The agent can use the same JSON-based operations and scoped credential as a regular WAAPI node. Give it only the operations and API permissions needed for its task. File uploads and attachment downloads need native binary workflow data, so those three operations are hidden from the tool picker and rejected if imported into a tool. Use regular WAAPI steps for those transfers.
+
 ## Retries, lists, and errors
 
 Mutations automatically use a request reference scoped to the workflow, node, execution, loop run, and input item. Retrying the same item in the same execution reuses the reference. WAAPI protects identical requests for 24 hours and rejects changed payloads under that reference.

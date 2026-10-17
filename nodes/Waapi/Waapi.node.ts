@@ -7,7 +7,7 @@ import type {
 } from 'n8n-workflow';
 import { NodeConnectionTypes, NodeOperationError } from 'n8n-workflow';
 import { nodeError } from './GenericFunctions';
-import { isPrimaryField, operations, properties } from './Properties';
+import { isBinaryOperation, isPrimaryField, operations, properties } from './Properties';
 import { performOperation } from './Operations';
 import { downloadAttachment } from './Files';
 import { getCampaignFields, getTemplateFields } from './TemplateHelpers';
@@ -20,8 +20,7 @@ export class Waapi implements INodeType {
 		icon: { light: 'file:waapi.svg', dark: 'file:waapi.svg' },
 		group: ['transform'],
 		version: 1,
-		// The SDK uses undefined to disable AI-tool wrapping; binary operations need workflow inputs.
-		usableAsTool: undefined,
+		usableAsTool: true,
 		subtitle: '={{$parameter["operation"].replaceAll("_", " ")}}',
 		description:
 			'Send messages and manage customers, conversations, templates, campaigns, and automations with WAAPI',
@@ -50,6 +49,12 @@ export class Waapi implements INodeType {
 					throw new NodeOperationError(
 						this.getNode(),
 						'Choose a supported WAAPI resource and operation.',
+					);
+				if (this.isToolExecution() && isBinaryOperation(key))
+					throw new NodeOperationError(
+						this.getNode(),
+						'Use a regular WAAPI workflow step for file uploads and attachment downloads.',
+						{ itemIndex },
 					);
 				const input: IDataObject = {
 					...(this.getNodeParameter('additionalFields', itemIndex, {}) as IDataObject),

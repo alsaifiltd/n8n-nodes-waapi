@@ -1,6 +1,6 @@
 # Public release of n8n-nodes-waapi
 
-Version 0.1.2 is published on [npm](https://www.npmjs.com/package/n8n-nodes-waapi/v/0.1.2) and was submitted for n8n verification on 17 October 2026. Ownership was verified using info@digital-shift.us. The Creator Portal displays the official WAAPI logo. n8n approval is still pending; verified node-picker discovery and n8n Cloud availability must wait for that approval.
+Version 0.1.2 was published on [npm](https://www.npmjs.com/package/n8n-nodes-waapi/v/0.1.2) and submitted for n8n verification on 17 October 2026. Ownership was verified using info@digital-shift.us, and automated review passed. The Creator Portal displays the official WAAPI logo and requires a demo video before manual review. Version 0.1.3 adds AI Agent tool support for that review. Verified node-picker discovery and n8n Cloud availability must wait for n8n approval.
 
 ## Public source repository
 
@@ -37,7 +37,7 @@ Use the official n8n CLI's `npm run dev` to inspect the fields and execute sandb
 
 1. Use the public GitHub repository above and a GitHub environment named `npm`, with any desired approval protection.
 2. For the first publication, provision a short-lived npm granular publish token and store it as the repository/environment secret `NPM_TOKEN`. A new unscoped package requires permission to create packages; npm cannot restrict the token to a package that does not exist yet. Use no organization permissions, the shortest practical expiry, and the permissions required by the account's 2FA settings. Never place the token in the source, workflow YAML, or chat. Revoke the bootstrap token after the first release and trusted-publisher setup.
-3. Open **Actions → Publish WAAPI community node → Run workflow** on `main`, entering `0.1.2`. The workflow checks that the requested version matches package.json, installs dependencies with installation scripts disabled, lints, typechecks, builds, tests, uploads the npm tarball, and publishes with `--provenance --access public`.
+3. Open **Actions → Publish WAAPI community node → Run workflow** on `main`, entering `0.1.3`. The workflow checks that the requested version matches package.json, installs dependencies with installation scripts disabled, lints, typechecks, builds, tests, uploads the npm tarball, and publishes with `--provenance --access public`.
 4. Once the package exists, configure npm Trusted Publishing for owner `alsaifiltd`, repository `n8n-nodes-waapi`, workflow filename `publish.yml`, environment `npm`. With supported npm/GitHub OIDC, this removes the need for a long-lived `NPM_TOKEN`; remove the token secret after verifying trusted publishing.
 5. Verify the npm page shows the public repository, expected maintainer, MIT license, correct README, files, and provenance. Install the exact published version in a separate self-hosted n8n test instance.
 
@@ -51,6 +51,7 @@ After npm publication:
 2. Confirm the public repository is accessible and matches the npm provenance and metadata.
 3. Confirm sandbox workflows cover incoming messages, status events, contact lookup/upsert, approved templates, draft/launch gates, and binary files.
 4. Submit `n8n-nodes-waapi` in the [n8n Creator Portal](https://creators.n8n.io/nodes).
-5. Keep all public availability copy honest. Self-hosted community installation begins after npm publication. Verified discovery and n8n Cloud installation begin only after n8n approves the package.
+5. Record an uncut video of at most five minutes showing installation of the submitted npm version, credential creation and a successful test, common actions, and an AI Agent using the node as a tool. Keep credentials masked and use fictional sandbox records. Upload the video or its accessible URL in the Creator Portal and submit for manual review.
+6. Keep all public availability copy honest. Self-hosted community installation begins after npm publication. Verified discovery and n8n Cloud installation begin only after n8n approves the package.
 
 For later releases, update package.json, package-lock.json, CHANGELOG.md, and the README status, repeat validation, push the public source, and dispatch the same manual workflow with the new version.
