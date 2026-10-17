@@ -1,6 +1,6 @@
 # Public release of n8n-nodes-waapi
 
-Version 0.1.2 uses the manual publishing process below. Check [npm](https://www.npmjs.com/package/n8n-nodes-waapi) for published versions. n8n ownership verification uses the package author contact, info@digital-shift.us. Submission for review is still pending ownership verification.
+Version 0.1.2 is published on [npm](https://www.npmjs.com/package/n8n-nodes-waapi/v/0.1.2) and was submitted for n8n verification on 17 October 2026. Ownership was verified using info@digital-shift.us. The Creator Portal displays the official WAAPI logo. n8n approval is still pending; verified node-picker discovery and n8n Cloud availability must wait for that approval.
 
 ## Public source repository
 
