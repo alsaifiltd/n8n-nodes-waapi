@@ -2,7 +2,9 @@
 
 Version 0.1.3 is published on [npm](https://www.npmjs.com/package/n8n-nodes-waapi/v/0.1.3), with npm provenance, and passed n8n's published-package security scanner. It adds AI Agent tool support. A real n8n 2.43.7 rehearsal passed contact upsert, a simulated WhatsApp reply, and an AI Agent calling WAAPI Tool to find the fictional customer.
 
-The initial 0.1.2 submission on 17 October 2026 passed automated review. Ownership was verified using info@digital-shift.us, and the Creator Portal displays the official WAAPI logo. Manual review awaits an uncut demo video. The portal still lists 0.1.2 and rejects resubmission with "Package is already submitted for verification"; the n8n node-review team must retarget the submission to 0.1.3 so the review and demo versions match. Verified node-picker discovery and n8n Cloud availability must wait for n8n approval.
+The initial 0.1.2 submission on 17 October 2026 passed automated review. Ownership was verified using info@digital-shift.us, and the Creator Portal displays the official WAAPI logo. A continuous 3 minute 12 second demo of version 0.1.3 was uploaded and submitted on 17 October; the portal now shows **Manual Review: Under Review**. The video demonstrates npm installation, a new workflow, the masked demo credential and a successful connection test, contact upsert, a simulated WhatsApp reply, and a real AI Agent calling WAAPI Tool.
+
+The portal still tracks the locked 0.1.2 submission and rejects resubmission with "Package is already submitted for verification". A request was sent from info@digital-shift.us to nodes@n8n.io on 17 October asking the node-review team to retarget it to published version 0.1.3. That version update and n8n approval remain pending. Verified node-picker discovery and n8n Cloud availability begin only after approval.
 
 ## Public source repository
 
