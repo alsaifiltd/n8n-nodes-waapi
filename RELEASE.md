@@ -1,6 +1,8 @@
 # Public release of n8n-nodes-waapi
 
-Version 0.1.2 was published on [npm](https://www.npmjs.com/package/n8n-nodes-waapi/v/0.1.2) and submitted for n8n verification on 17 October 2026. Ownership was verified using info@digital-shift.us, and automated review passed. The Creator Portal displays the official WAAPI logo and requires a demo video before manual review. Version 0.1.3 adds AI Agent tool support for that review. Verified node-picker discovery and n8n Cloud availability must wait for n8n approval.
+Version 0.1.3 is published on [npm](https://www.npmjs.com/package/n8n-nodes-waapi/v/0.1.3), with npm provenance, and passed n8n's published-package security scanner. It adds AI Agent tool support. A real n8n 2.43.7 rehearsal passed contact upsert, a simulated WhatsApp reply, and an AI Agent calling WAAPI Tool to find the fictional customer.
+
+The initial 0.1.2 submission on 17 October 2026 passed automated review. Ownership was verified using info@digital-shift.us, and the Creator Portal displays the official WAAPI logo. Manual review awaits an uncut demo video. The portal still lists 0.1.2 and rejects resubmission with "Package is already submitted for verification"; the n8n node-review team must retarget the submission to 0.1.3 so the review and demo versions match. Verified node-picker discovery and n8n Cloud availability must wait for n8n approval.
 
 ## Public source repository
 
