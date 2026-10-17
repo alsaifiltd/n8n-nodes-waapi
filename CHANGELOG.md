@@ -1,3 +1,7 @@
+# 0.1.2 — 2026-10-17
+
+- Update the package author contact to info@digital-shift.us for n8n ownership verification and integration support.
+
 # 0.1.1 — 2026-10-17
 
 - Explicitly declare that the action node uses normal workflow inputs, satisfying n8n's published-package scanner without enabling incompatible binary operations as AI tools.

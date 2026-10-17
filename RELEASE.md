@@ -1,6 +1,6 @@
 # Public release of n8n-nodes-waapi
 
-Version 0.1.1 uses the manual publishing process below. Check [npm](https://www.npmjs.com/package/n8n-nodes-waapi) for published versions. The package has not been submitted for n8n verification.
+Version 0.1.2 uses the manual publishing process below. Check [npm](https://www.npmjs.com/package/n8n-nodes-waapi) for published versions. n8n ownership verification uses the package author contact, info@digital-shift.us. Submission for review is still pending ownership verification.
 
 ## Public source repository
 
@@ -37,7 +37,7 @@ Use the official n8n CLI's `npm run dev` to inspect the fields and execute sandb
 
 1. Use the public GitHub repository above and a GitHub environment named `npm`, with any desired approval protection.
 2. For the first publication, provision a short-lived npm granular publish token and store it as the repository/environment secret `NPM_TOKEN`. A new unscoped package requires permission to create packages; npm cannot restrict the token to a package that does not exist yet. Use no organization permissions, the shortest practical expiry, and the permissions required by the account's 2FA settings. Never place the token in the source, workflow YAML, or chat. Revoke the bootstrap token after the first release and trusted-publisher setup.
-3. Open **Actions → Publish WAAPI community node → Run workflow** on `main`, entering `0.1.1`. The workflow checks that the requested version matches package.json, installs dependencies with installation scripts disabled, lints, typechecks, builds, tests, uploads the npm tarball, and publishes with `--provenance --access public`.
+3. Open **Actions → Publish WAAPI community node → Run workflow** on `main`, entering `0.1.2`. The workflow checks that the requested version matches package.json, installs dependencies with installation scripts disabled, lints, typechecks, builds, tests, uploads the npm tarball, and publishes with `--provenance --access public`.
 4. Once the package exists, configure npm Trusted Publishing for owner `alsaifiltd`, repository `n8n-nodes-waapi`, workflow filename `publish.yml`, environment `npm`. With supported npm/GitHub OIDC, this removes the need for a long-lived `NPM_TOKEN`; remove the token secret after verifying trusted publishing.
 5. Verify the npm page shows the public repository, expected maintainer, MIT license, correct README, files, and provenance. Install the exact published version in a separate self-hosted n8n test instance.
 
