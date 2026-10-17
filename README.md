@@ -2,7 +2,7 @@
 
 Connect [WAAPI](https://waapi.chat) to n8n to send WhatsApp and supported channel messages, manage customers and conversations, and start workflows from signed WAAPI events.
 
-**Release status:** 0.1.0 is a source release candidate. It has not been published to npm or verified by n8n. Public installation becomes available after npm publication; n8n Cloud installation requires n8n verification. See [RELEASE.md](RELEASE.md) for the remaining steps.
+**n8n availability:** Install published versions on self-hosted n8n. Verified node-picker discovery and n8n Cloud installation require n8n approval; this package has not been verified. See [RELEASE.md](RELEASE.md) for publishing and verification details.
 
 ## Nodes
 
@@ -25,7 +25,7 @@ Triggers: **New Incoming Message**, **Message Status Changed**, **New Contact**,
 
 ## Install
 
-After the package is published, self-hosted n8n owners can open **Settings → Community Nodes → Install** and enter `n8n-nodes-waapi`. After n8n verification, users with verified community nodes enabled can also find **WAAPI** in the n8n node picker, including on n8n Cloud.
+For a published release, self-hosted n8n owners can open **Settings → Community Nodes → Install** and enter `n8n-nodes-waapi`. Available versions appear on [npm](https://www.npmjs.com/package/n8n-nodes-waapi). After n8n verification, users with verified community nodes enabled can also find **WAAPI** in the n8n node picker, including on n8n Cloud.
 
 For local development, use Node.js 24 and run:
 
@@ -34,7 +34,7 @@ npm ci --ignore-scripts --legacy-peer-deps
 npm run dev
 ```
 
-The official n8n development CLI may require Docker or Podman. Follow its startup instructions. To install a built release candidate on a self-hosted test instance, place the npm tarball in that instance and install it in its community-node directory, then restart n8n. Do not try to install this source-only version from the public registry before publication.
+The official n8n development CLI may require Docker or Podman. Follow its startup instructions. To test a build before publication, place its npm tarball in a self-hosted test instance and install it in that instance's community-node directory, then restart n8n.
 
 ## Connect your WAAPI account
 

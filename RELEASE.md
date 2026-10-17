@@ -1,10 +1,10 @@
 # Public release of n8n-nodes-waapi
 
-Version 0.1.0 is prepared for review. It is not published on npm and has not been submitted for n8n verification.
+Version 0.1.0 uses the manual publishing process below. Check [npm](https://www.npmjs.com/package/n8n-nodes-waapi) for published versions. The package has not been submitted for n8n verification.
 
 ## Public source repository
 
-The WAAPI platform repository is private. Publish only the standalone community-node source, never the platform repository. The package metadata targets `https://github.com/alsaifiltd/n8n-nodes-waapi`.
+The public source repository is [alsaifiltd/n8n-nodes-waapi](https://github.com/alsaifiltd/n8n-nodes-waapi). The WAAPI platform repository is private. Publish only the standalone community-node source, never the platform repository.
 
 From the WAAPI repository, run:
 
@@ -15,7 +15,7 @@ node scripts/export-n8n-package.mjs
 
 The export is `out/n8n-nodes-waapi-source.tar.gz`. The export script uses an explicit file allowlist and rejects environment files, credential-shaped values, private keys, and symbolic links. It includes the node code, generated catalog, tests, example workflows, license, build configuration, and the manual publishing workflow. It excludes platform source, local credentials, dependency installations, and Git history.
 
-Create the public repository `alsaifiltd/n8n-nodes-waapi`, extract that archive, and push those files to its `main` branch. Keep the author and repository metadata consistent with the publishing npm account. If the repository name changes, update package.json, package-lock.json, and this guide before release.
+Extract that archive and synchronize those files to the public repository's `main` branch. Keep the author and repository metadata consistent with the publishing npm account. If the repository name changes, update package.json, package-lock.json, and this guide before release.
 
 ## Validate the source
 
@@ -35,8 +35,8 @@ Use the official n8n CLI's `npm run dev` to inspect the fields and execute sandb
 
 [Current n8n verification guidelines](https://docs.n8n.io/connect/create-nodes/build-your-node/reference/verification-guidelines/) require GitHub Actions publishing with npm provenance. A local `npm publish` is not the release path.
 
-1. Create the public GitHub repository described above. Create a GitHub environment named `npm`, with any desired approval protection.
-2. For the first publication, provision a narrowly scoped npm granular publish token and store it as the repository/environment secret `NPM_TOKEN`. Never place it in the source, workflow YAML, or chat. npm may require a token permitted to publish with the account's 2FA settings.
+1. Use the public GitHub repository above and a GitHub environment named `npm`, with any desired approval protection.
+2. For the first publication, provision a short-lived npm granular publish token and store it as the repository/environment secret `NPM_TOKEN`. A new unscoped package requires permission to create packages; npm cannot restrict the token to a package that does not exist yet. Use no organization permissions, the shortest practical expiry, and the permissions required by the account's 2FA settings. Never place the token in the source, workflow YAML, or chat. Revoke the bootstrap token after the first release and trusted-publisher setup.
 3. Open **Actions → Publish WAAPI community node → Run workflow** on `main`, entering `0.1.0`. The workflow checks that the requested version matches package.json, installs dependencies with installation scripts disabled, lints, typechecks, builds, tests, uploads the npm tarball, and publishes with `--provenance --access public`.
 4. Once the package exists, configure npm Trusted Publishing for owner `alsaifiltd`, repository `n8n-nodes-waapi`, workflow filename `publish.yml`, environment `npm`. With supported npm/GitHub OIDC, this removes the need for a long-lived `NPM_TOKEN`; remove the token secret after verifying trusted publishing.
 5. Verify the npm page shows the public repository, expected maintainer, MIT license, correct README, files, and provenance. Install the exact published version in a separate self-hosted n8n test instance.
