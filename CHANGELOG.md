@@ -1,3 +1,7 @@
+# 0.1.1 — 2026-10-17
+
+- Explicitly declare that the action node uses normal workflow inputs, satisfying n8n's published-package scanner without enabling incompatible binary operations as AI tools.
+
 # 0.1.0 — 2026-10-16
 
 - Add the WAAPI action node with 84 actions and 3 searches matching the WAAPI Zapier integration.

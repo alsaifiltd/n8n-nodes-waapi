@@ -13,7 +13,6 @@ import { downloadAttachment } from './Files';
 import { getCampaignFields, getTemplateFields } from './TemplateHelpers';
 import { loadOptions } from './LoadOptions';
 
-// eslint-disable-next-line @n8n/community-nodes/node-usable-as-tool -- Native binary uploads and downloads are incompatible with AI tool inputs.
 export class Waapi implements INodeType {
 	description: INodeTypeDescription = {
 		displayName: 'WAAPI',
@@ -21,6 +20,8 @@ export class Waapi implements INodeType {
 		icon: { light: 'file:waapi.svg', dark: 'file:waapi.svg' },
 		group: ['transform'],
 		version: 1,
+		// The SDK uses undefined to disable AI-tool wrapping; binary operations need workflow inputs.
+		usableAsTool: undefined,
 		subtitle: '={{$parameter["operation"].replaceAll("_", " ")}}',
 		description:
 			'Send messages and manage customers, conversations, templates, campaigns, and automations with WAAPI',
